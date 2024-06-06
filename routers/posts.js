@@ -5,12 +5,12 @@ const { index, show, create, update, destroy } = require('../controllers/control
 
 router.get('/', index);
 
-router.get('/:id', show);
+router.get('/:slug', show);
 
 router.post('/', create);
 
-router.put('/:id', update);
+router.put('/:slug', update);
 
-router.delete('/:id', destroy);
+router.delete('/:slug', destroy);
 
 module.exports = router;
