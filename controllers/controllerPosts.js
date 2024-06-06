@@ -4,19 +4,21 @@ const prisma = new PrismaClient();
 const createSlug = require('../utils/getSlug.js');
 
 const index = async (req, res) => {
+    const where = {};
     try {
-        const where = {};
     
-        const { published } = req.query;
+        const { published, title } = req.query;
 
         if (published) where.published = published === "true";
-    
-        const posts = await prisma.post.findMany({ where });
+
+        if (title) where.title = { contains: title };
+        
+        const posts = await prisma.post.findMany({where});
         
         res.status(200).json(posts)
-
+        
     } catch (error) {
-        res.status(500).json('Errore server')
+        res.status(404).json('Non trovato');
     }
 }
 
